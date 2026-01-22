@@ -1,0 +1,130 @@
+[2026-01-22 17:59:48] local.ERROR: Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\Compilers\Compiler.php:66
+Stack trace:
+#0 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\ViewServiceProvider.php(96): Illuminate\View\Compilers\Compiler->__construct(Object(Illuminate\Filesystem\Filesystem), false, '', true, 'php')
+#1 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(885): Illuminate\View\ViewServiceProvider->Illuminate\View\{closure}(Object(Illuminate\Foundation\Application), Array)
+#2 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build(Object(Closure))
+#3 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(881): Illuminate\Container\Container->resolve('blade.compiler', Array, true)
+#4 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve('blade.compiler', Array)
+#5 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(866): Illuminate\Container\Container->make('blade.compiler', Array)
+#6 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\View...')
+#8 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66
+Stack trace:
+#0 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\ViewServiceProvider.php(96): Illuminate\\View\\Compilers\\Compiler->__construct(Object(Illuminate\\Filesystem\\Filesystem), false, '', true, 'php')
+#1 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(885): Illuminate\\View\\ViewServiceProvider->Illuminate\\View\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#2 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build(Object(Closure))
+#3 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(881): Illuminate\\Container\\Container->resolve('blade.compiler', Array, true)
+#4 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve('blade.compiler', Array)
+#5 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(866): Illuminate\\Container\\Container->make('blade.compiler', Array)
+#6 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\\\View...')
+#8 {main}
+  thrown at F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66)
+[stacktrace]
+#0 {main}
+"} 
+[2026-01-22 18:09:45] local.ERROR: Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\Compilers\Compiler.php:66
+Stack trace:
+#0 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\ViewServiceProvider.php(96): Illuminate\View\Compilers\Compiler->__construct(Object(Illuminate\Filesystem\Filesystem), false, '', true, 'php')
+#1 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(885): Illuminate\View\ViewServiceProvider->Illuminate\View\{closure}(Object(Illuminate\Foundation\Application), Array)
+#2 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build(Object(Closure))
+#3 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(881): Illuminate\Container\Container->resolve('blade.compiler', Array, true)
+#4 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve('blade.compiler', Array)
+#5 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(866): Illuminate\Container\Container->make('blade.compiler', Array)
+#6 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\View...')
+#8 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66
+Stack trace:
+#0 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\ViewServiceProvider.php(96): Illuminate\\View\\Compilers\\Compiler->__construct(Object(Illuminate\\Filesystem\\Filesystem), false, '', true, 'php')
+#1 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(885): Illuminate\\View\\ViewServiceProvider->Illuminate\\View\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#2 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build(Object(Closure))
+#3 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(881): Illuminate\\Container\\Container->resolve('blade.compiler', Array, true)
+#4 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve('blade.compiler', Array)
+#5 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(866): Illuminate\\Container\\Container->make('blade.compiler', Array)
+#6 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\\\View...')
+#8 {main}
+  thrown at F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66)
+[stacktrace]
+#0 {main}
+"} 
+[2026-01-22 18:19:45] local.ERROR: Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\Compilers\Compiler.php:66
+Stack trace:
+#0 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\ViewServiceProvider.php(96): Illuminate\View\Compilers\Compiler->__construct(Object(Illuminate\Filesystem\Filesystem), false, '', true, 'php')
+#1 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(885): Illuminate\View\ViewServiceProvider->Illuminate\View\{closure}(Object(Illuminate\Foundation\Application), Array)
+#2 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build(Object(Closure))
+#3 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(881): Illuminate\Container\Container->resolve('blade.compiler', Array, true)
+#4 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve('blade.compiler', Array)
+#5 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(866): Illuminate\Container\Container->make('blade.compiler', Array)
+#6 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\View...')
+#8 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66
+Stack trace:
+#0 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\ViewServiceProvider.php(96): Illuminate\\View\\Compilers\\Compiler->__construct(Object(Illuminate\\Filesystem\\Filesystem), false, '', true, 'php')
+#1 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(885): Illuminate\\View\\ViewServiceProvider->Illuminate\\View\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#2 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build(Object(Closure))
+#3 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(881): Illuminate\\Container\\Container->resolve('blade.compiler', Array, true)
+#4 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve('blade.compiler', Array)
+#5 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(866): Illuminate\\Container\\Container->make('blade.compiler', Array)
+#6 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\\\View...')
+#8 {main}
+  thrown at F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66)
+[stacktrace]
+#0 {main}
+"} 
+[2026-01-22 18:29:45] local.ERROR: Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\Compilers\Compiler.php:66
+Stack trace:
+#0 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\ViewServiceProvider.php(96): Illuminate\View\Compilers\Compiler->__construct(Object(Illuminate\Filesystem\Filesystem), false, '', true, 'php')
+#1 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(885): Illuminate\View\ViewServiceProvider->Illuminate\View\{closure}(Object(Illuminate\Foundation\Application), Array)
+#2 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build(Object(Closure))
+#3 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(881): Illuminate\Container\Container->resolve('blade.compiler', Array, true)
+#4 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve('blade.compiler', Array)
+#5 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(866): Illuminate\Container\Container->make('blade.compiler', Array)
+#6 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\View...')
+#8 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66
+Stack trace:
+#0 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\ViewServiceProvider.php(96): Illuminate\\View\\Compilers\\Compiler->__construct(Object(Illuminate\\Filesystem\\Filesystem), false, '', true, 'php')
+#1 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(885): Illuminate\\View\\ViewServiceProvider->Illuminate\\View\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#2 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build(Object(Closure))
+#3 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(881): Illuminate\\Container\\Container->resolve('blade.compiler', Array, true)
+#4 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve('blade.compiler', Array)
+#5 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(866): Illuminate\\Container\\Container->make('blade.compiler', Array)
+#6 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\\\View...')
+#8 {main}
+  thrown at F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66)
+[stacktrace]
+#0 {main}
+"} 
+[2026-01-22 18:39:45] local.ERROR: Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\Compilers\Compiler.php:66
+Stack trace:
+#0 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\View\ViewServiceProvider.php(96): Illuminate\View\Compilers\Compiler->__construct(Object(Illuminate\Filesystem\Filesystem), false, '', true, 'php')
+#1 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(885): Illuminate\View\ViewServiceProvider->Illuminate\View\{closure}(Object(Illuminate\Foundation\Application), Array)
+#2 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build(Object(Closure))
+#3 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(881): Illuminate\Container\Container->resolve('blade.compiler', Array, true)
+#4 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve('blade.compiler', Array)
+#5 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(866): Illuminate\Container\Container->make('blade.compiler', Array)
+#6 F:\spirehubtask\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\View...')
+#8 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught InvalidArgumentException: Please provide a valid cache path. in F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66
+Stack trace:
+#0 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\ViewServiceProvider.php(96): Illuminate\\View\\Compilers\\Compiler->__construct(Object(Illuminate\\Filesystem\\Filesystem), false, '', true, 'php')
+#1 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(885): Illuminate\\View\\ViewServiceProvider->Illuminate\\View\\{closure}(Object(Illuminate\\Foundation\\Application), Array)
+#2 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build(Object(Closure))
+#3 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(881): Illuminate\\Container\\Container->resolve('blade.compiler', Array, true)
+#4 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve('blade.compiler', Array)
+#5 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(866): Illuminate\\Container\\Container->make('blade.compiler', Array)
+#6 F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make('blade.compiler', Array)
+#7 Command line code(1): app('Illuminate\\\\View...')
+#8 {main}
+  thrown at F:\\spirehubtask\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\Compiler.php:66)
+[stacktrace]
+#0 {main}
+"} 
