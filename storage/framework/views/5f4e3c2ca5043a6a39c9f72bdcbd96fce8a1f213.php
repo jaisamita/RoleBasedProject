@@ -1,16 +1,17 @@
-@extends('layouts.admin')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
-@if(session('success'))
+<?php if(session('success')): ?>
     <div id="success-msg" class="alert alert-success alert-dismissible fade show">
-        {{ session('success') }}
+        <?php echo e(session('success')); ?>
+
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
-@endif
+<?php endif; ?>
 
 <div class="container-fluid">
     <div class="card shadow-sm border-0">
@@ -34,19 +35,20 @@
                 </thead>
 
                 <tbody>
-                    @forelse($users as $index => $user)
-                        <tr id="row-{{ $user->id }}">
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
+                    <?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                        <tr id="row-<?php echo e($user->id); ?>">
+                            <td><?php echo e($index + 1); ?></td>
+                            <td><?php echo e($user->name); ?></td>
+                            <td><?php echo e($user->email); ?></td>
                             <td>
-                                <span class="badge {{ $user->role === 'admin' ? 'bg-danger' : 'bg-success' }}">
-                                    {{ ucfirst($user->role) }}
+                                <span class="badge <?php echo e($user->role === 'admin' ? 'bg-danger' : 'bg-success'); ?>">
+                                    <?php echo e(ucfirst($user->role)); ?>
+
                                 </span>
                             </td>
                             <td class="text-center">
                                 <!-- Edit -->
-                                <a href="{{ url('/users/'.$user->id.'/edit') }}"
+                                <a href="<?php echo e(url('/users/'.$user->id.'/edit')); ?>"
                                    title="Edit"
                                    style="color:#0d6efd;font-size:14px;margin-right:10px;text-decoration:none;">
                                    ✏️
@@ -54,27 +56,27 @@
 
                                 <!-- Delete -->
                                 <a href="javascript:void(0)"
-                                   onclick="deleteUser({{ $user->id }})"
+                                   onclick="deleteUser(<?php echo e($user->id); ?>)"
                                    title="Delete"
                                    style="color:red;font-size:14px;text-decoration:none;">
                                    🗑️
                                 </a>
                             </td>
                         </tr>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="5" class="text-center text-muted">
                                 No users found
                             </td>
                         </tr>
-                    @endforelse
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <script>
     setTimeout(() => {
         let msg = document.getElementById('success-msg');
@@ -155,4 +157,6 @@ function deleteUser(id) {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\spirehubtask\resources\views/admin/users.blade.php ENDPATH**/ ?>

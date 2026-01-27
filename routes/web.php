@@ -30,10 +30,17 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/user/dashboard',[AuthController::class,'user_index']);
+	Route::get('/users/{id}/edit', [AuthController::class, 'edit']);
+    Route::put('/users/{id}', [AuthController::class, 'update']);
+    Route::delete('/users/{id}', [AuthController::class, 'destroy']);
 
     
 	
 });
+Route::middleware(['auth','is_admin'])->group(function () {
+    Route::delete('/users/{id}', [AuthController::class, 'destroy']);
+});
+
 //restricted for normal user
 Route::middleware(['auth','is_admin'])->group(function () {
 	Route::get('/admin/dashboard',[AuthController::class, 'admin_index']);

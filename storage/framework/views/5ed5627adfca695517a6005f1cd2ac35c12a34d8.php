@@ -75,18 +75,18 @@
     <div>
         
         <a href="/admin/dashboard" style="text-decoration:none">Admin Dashboard</a>
-        <a href="{{ route('admin.users') }}" style="text-decoration:none">Users</a>
+        <a href="<?php echo e(route('admin.users')); ?>" style="text-decoration:none">Users</a>
     </div>
 
 
       <div>
-        <span>Welcome, {{ auth()->user()->name }}</span>
+        <span>Welcome, <?php echo e(auth()->user()->name); ?></span>
     </div>
 	
     <div>
         
-        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-            @csrf
+        <form method="POST" action="<?php echo e(route('logout')); ?>" style="display:inline;">
+            <?php echo csrf_field(); ?>
             <button class="logout-btn">Logout</button>
         </form>
     </div>
@@ -94,27 +94,30 @@
 
 <div class="container">
    <div class="card">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
 			
         <!--h4>Account Details</h4>
         <hr>
-		  <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
-        <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
-        <p><strong>Role:</strong> {{ ucfirst(auth()->user()->role) }}</p>
-        <p><strong>User ID:</strong> {{ auth()->user()->id }}</p>
+		  <p><strong>Name:</strong> <?php echo e(auth()->user()->name); ?></p>
+        <p><strong>Email:</strong> <?php echo e(auth()->user()->email); ?></p>
+        <p><strong>Role:</strong> <?php echo e(ucfirst(auth()->user()->role)); ?></p>
+        <p><strong>User ID:</strong> <?php echo e(auth()->user()->id); ?></p>
         <p><strong>Registered On:</strong>
-            {{ auth()->user()->created_at->format('d M Y') }}
+            <?php echo e(auth()->user()->created_at->format('d M Y')); ?>
+
         </p>
         <p><strong>Last Updated:</strong>
-            {{ auth()->user()->updated_at->format('d M Y') }}
+            <?php echo e(auth()->user()->updated_at->format('d M Y')); ?>
+
         </p-->
     
     </div>
 </div>
 
 <footer>
-    © {{ date('Y') }} Admin Panel
+    © <?php echo e(date('Y')); ?> Admin Panel
 </footer>
 
 </body>
 </html>
+<?php /**PATH F:\spirehubtask\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

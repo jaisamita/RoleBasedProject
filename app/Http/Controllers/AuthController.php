@@ -115,5 +115,45 @@ public function user_index(){
 
     return redirect('/login')->with('success', 'Logged out successfully');
 }
-	
+
+//user delete by id
+	public function destroy($id)
+{
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'User not found'
+        ]);
+    }
+
+    $user->delete();
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'User deleted successfully'
+    ]);
+}
+
+
+public function edit($id)
+{
+    $user = User::findOrFail($id);
+    return view('admin.users.edit', compact('user'));
+}
+
+public function update(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+
+    $user->update([
+        'name'  => $request->name,
+        'email' => $request->email,
+        'role'  => $request->role,
+    ]);
+
+    return redirect('admin/users')->with('success', 'User updated successfully');
+}
+
 }

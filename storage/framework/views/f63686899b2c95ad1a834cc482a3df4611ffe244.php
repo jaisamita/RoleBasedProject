@@ -83,7 +83,7 @@
 <div class="login-box">
     <h2>Login</h2>
 
-@if (session('success'))
+<?php if(session('success')): ?>
     <div id="logout-success" style="
         background:green;
         color:white;
@@ -91,44 +91,59 @@
         border-radius:5px;
         margin-bottom:15px;
         text-align:center;">
-        {{ session('success') }}
-    </div>
-@endif
+        <?php echo e(session('success')); ?>
 
-    <form method="POST" action="{{ url('/login') }}">
-        @csrf
+    </div>
+<?php endif; ?>
+
+    <form method="POST" action="<?php echo e(url('/login')); ?>">
+        <?php echo csrf_field(); ?>
 
         <label>Email</label>
-        <input type="email" name="email" value="{{ old('email') }}">
-        @error('email')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        <input type="email" name="email" value="<?php echo e(old('email')); ?>">
+        <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <div class="error"><?php echo e($message); ?></div>
+        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
         <label>Password</label>
         <input type="password" name="password">
-        @error('password')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <div class="error"><?php echo e($message); ?></div>
+        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 
         <button type="submit">Login</button>
     </form>
 
     <div class="register-link">
         Don’t have an account?
-        <a href="{{ url('/register') }}">Register</a>
+        <a href="<?php echo e(url('/register')); ?>">Register</a>
     </div>
 </div>
-@if ($errors->any())
+<?php if($errors->any()): ?>
 <script>
     window.onload = function () {
         let msg = "";
-        @foreach ($errors->all() as $error)
-            msg += "- {{ $error }}\n";
-        @endforeach
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            msg += "- <?php echo e($error); ?>\n";
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     };
 </script>
 
-@endif
+<?php endif; ?>
 
 <script>
     setTimeout(function () {
@@ -142,3 +157,4 @@
 </script>
 </body>
 </html>
+<?php /**PATH F:\spirehubtask\resources\views/auth/login.blade.php ENDPATH**/ ?>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel</title>
+    <title>User Panel</title>
 
     <style>
         * { box-sizing: border-box; }
@@ -46,9 +46,9 @@
             background: #e63c3c;
         }
 
-        /* Layout */
+       
         .container {
-            padding: 30px;
+            padding: 50px;
         }
 
         .card {
@@ -56,6 +56,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0,0,0,.08);
+            animation: fadeIn .4s ease-in-out;
         }
 
         footer {
@@ -64,57 +65,62 @@
             color: #777;
             margin-top: 40px;
         }
-    </style>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="navbar">
     <div>
-        
-        <a href="/admin/dashboard" style="text-decoration:none">Admin Dashboard</a>
-        <a href="{{ route('admin.users') }}" style="text-decoration:none">Users</a>
-    </div>
 
-
-      <div>
-        <span>Welcome, {{ auth()->user()->name }}</span>
+        <a href="/user/dashboard">User Dashboard</a>
     </div>
 	
-    <div>
+	<div><span>Welcome, <?php echo e(auth()->user()->name); ?></span></div>
+    
+	<div>
         
-        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-            @csrf
+        <form method="POST" action="<?php echo e(route('logout')); ?>" style="display:inline;">
+            <?php echo csrf_field(); ?>
             <button class="logout-btn">Logout</button>
         </form>
     </div>
 </div>
 
 <div class="container">
-   <div class="card">
-        @yield('content')
+    <div class="card">
+        <?php echo $__env->yieldContent('content'); ?>
 			
-        <!--h4>Account Details</h4>
+        <h4>Account Details</h4>
         <hr>
-		  <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
-        <p><strong>Email:</strong> {{ auth()->user()->email }}</p>
-        <p><strong>Role:</strong> {{ ucfirst(auth()->user()->role) }}</p>
-        <p><strong>User ID:</strong> {{ auth()->user()->id }}</p>
+		  <p><strong>Name:</strong> <?php echo e(auth()->user()->name); ?></p>
+        <p><strong>Email:</strong> <?php echo e(auth()->user()->email); ?></p>
+        <p><strong>Role:</strong> <?php echo e(ucfirst(auth()->user()->role)); ?></p>
+        <p><strong>User ID:</strong> <?php echo e(auth()->user()->id); ?></p>
         <p><strong>Registered On:</strong>
-            {{ auth()->user()->created_at->format('d M Y') }}
+            <?php echo e(auth()->user()->created_at->format('d M Y')); ?>
+
         </p>
         <p><strong>Last Updated:</strong>
-            {{ auth()->user()->updated_at->format('d M Y') }}
-        </p-->
+            <?php echo e(auth()->user()->updated_at->format('d M Y')); ?>
+
+        </p>
     
     </div>
 </div>
 
+
+
+
 <footer>
-    © {{ date('Y') }} Admin Panel
+    © <?php echo e(date('Y')); ?> User Panel
 </footer>
 
 </body>
 </html>
+<?php /**PATH F:\spirehubtask\resources\views/layouts/user.blade.php ENDPATH**/ ?>
