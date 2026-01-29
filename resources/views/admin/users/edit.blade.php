@@ -25,13 +25,6 @@
                            value="{{ old('email', $user->email) }}">
                 </div>
 
-                <div class="mb-3">
-                    <label>Role</label>
-                    <select name="role" class="form-control">
-                        <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
-                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                    </select>
-                </div>
 
                 <button type="submit" class="btn btn-success">
                     Update

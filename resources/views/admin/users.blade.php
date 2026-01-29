@@ -28,7 +28,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        
                         <th width="120" class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -39,17 +39,13 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>
-                                <span class="badge {{ $user->role === 'admin' ? 'bg-danger' : 'bg-success' }}">
-                                    {{ ucfirst($user->role) }}
-                                </span>
-                            </td>
+                           
                             <td class="text-center">
                                 <!-- Edit -->
                                 <a href="{{ url('/users/'.$user->id.'/edit') }}"
                                    title="Edit"
                                    style="color:#0d6efd;font-size:14px;margin-right:10px;text-decoration:none;">
-                                   ✏️
+                                   Edit
                                 </a>
 
                                 <!-- Delete -->
@@ -57,7 +53,7 @@
                                    onclick="deleteUser({{ $user->id }})"
                                    title="Delete"
                                    style="color:red;font-size:14px;text-decoration:none;">
-                                   🗑️
+                                   Delete
                                 </a>
                             </td>
                         </tr>

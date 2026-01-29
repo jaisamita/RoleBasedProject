@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminUsersController;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\WelcomeMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +27,7 @@ Route::post('/login', [AuthController::class, 'login']);
 //register
 Route::get('/register', [AuthController::class, 'register_index']);
 Route::post('/register', [AuthController::class, 'register'])->name('register'); 
+
 
 
 //middleware user /admin

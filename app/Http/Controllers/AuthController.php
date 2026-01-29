@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use App\Mail\WelcomeMail;
 
 class AuthController extends Controller
 {
@@ -26,24 +28,30 @@ class AuthController extends Controller
 	  $request->validate([
         'name'     => 'required|string|min:3',
         'email'    => 'required|email|unique:users,email',
-        'password' => 'required|min:6|confirmed',
-        'role'     => 'required|in:user,admin',
+        'password' => 'required|min:6|confirmed'
+    
     ], [
         'name.required'     => 'Name field is required',
         'email.required'    => 'Email field is required',
+        'email.email'       =>   'Please enter a valid email address',
+        'email.unique'       =>   'This  emailId is already registered',
         'password.required' => 'Password field is required',
-        'role.required'     => 'Please select role',
+        'password.confirmed' =>'Password confirmation does not match',
+        'password.min'       => 'Password must be at least 6 characters',
+        
     ]);
 		
-		User::create([
+		$user = User::create([
 		'name'=>$request->name,
 		'email'=>$request->email,
-		'role'=>$request->role,
 		'password'=>Hash::make($request->password)
 		]);
 		
+
+        Mail::to($user->email)->send(new WelcomeMail());
+
 		
-		 return redirect('/login')->with('success', 'Registration successful. Please login.');
+		return redirect('/login')->with('success', 'Registration successful. Please login.');
 	}
 	
 //user login function
@@ -56,7 +64,10 @@ public function login(Request $request)
         'password' => 'required|min:6',
     ], [
         'email.required'    => 'Email field is required',
+        'email.email'       =>   'Please enter a valid email address',
         'password.required' => 'Password field is required',
+        'password.min'       => 'Password must be at least 6 characters',
+        
     ]);
     $credentials = $request->only('email', 'password');
 
@@ -107,15 +118,11 @@ public function user_index(){
 	
 	public function logout(Request $request)
 {
-    Auth::logout(); // user logout
-
-    // session clear
+    Auth::logout(); 
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-
     return redirect('/login')->with('success', 'Logged out successfully');
 }
-
 //user delete by id
 	public function destroy($id)
 {
@@ -150,7 +157,7 @@ public function update(Request $request, $id)
     $user->update([
         'name'  => $request->name,
         'email' => $request->email,
-        'role'  => $request->role,
+       
     ]);
 
     return redirect('admin/users')->with('success', 'User updated successfully');

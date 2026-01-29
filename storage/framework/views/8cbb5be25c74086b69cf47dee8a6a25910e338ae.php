@@ -100,17 +100,14 @@
         <hr>
 		  <p><strong>Name:</strong> <?php echo e(auth()->user()->name); ?></p>
         <p><strong>Email:</strong> <?php echo e(auth()->user()->email); ?></p>
-        <p><strong>Role:</strong> <?php echo e(ucfirst(auth()->user()->role)); ?></p>
-        <p><strong>User ID:</strong> <?php echo e(auth()->user()->id); ?></p>
-        <p><strong>Registered On:</strong>
-            <?php echo e(auth()->user()->created_at->format('d M Y')); ?>
-
-        </p>
-        <p><strong>Last Updated:</strong>
-            <?php echo e(auth()->user()->updated_at->format('d M Y')); ?>
-
-        </p>
     
+        <p><strong>User ID:</strong> <?php echo e(auth()->user()->id); ?></p>
+       
+      <a href="<?php echo e(url('#')); ?>"
+                                   title="Edit"
+                                   style="color:#0d6efd;font-size:14px;margin-right:10px;text-decoration:none;">
+                                   Edit
+                                </a>
     </div>
 </div>
 
