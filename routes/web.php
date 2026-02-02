@@ -43,9 +43,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('auth')->group(function () {
   Route::get('/user/profile/edit', [AuthController::class, 'editProfile'])
   ->name('user.profile.edit');
-Route::post('/user/profile/update', [AuthController::class, 'updateProfile'])->name('user.profile.update');
-
+Route::post('/user/profile/update', [AuthController::class, 'updateProfile'])->
+name('user.profile.update');
 });
+
 Route::middleware(['auth','is_admin'])->group(function () {
 Route::put('/admin/profile/update', [AdminUsersController::class, 'update']);
 

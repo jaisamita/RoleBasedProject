@@ -86,47 +86,7 @@ public function login(Request $request)
         ])->withInput();
     }
 
-    // if ($user->contact_verified === 'No') {
-    //     if (!$request->filled('otp')) {
-
-    //         $otp = rand(100000, 999999);
-
-    //         $user->update([
-    //             'otp' => $otp,
-    //             'otp_expires_at' => Carbon::now()->addMinutes(5),
-    //         ]);
-
-    //         Mail::raw(
-    //             "Your OTP is: $otp\nValid for 5 minutes.",
-    //             function ($message) use ($user) {
-    //                 $message->to($user->email)
-    //                         ->subject('Login OTP Verification');
-    //             }
-    //         );
-
-    //         return back()
-    //             ->with('success', 'OTP sent to your email')
-    //             ->with('showOtp', true)
-    //             ->withInput();
-    //     }
-
-    //     // OTP verify
-    //     if (
-    //         $user->otp !== $request->otp ||
-    //         Carbon::now()->gt($user->otp_expires_at)
-    //     ) {
-    //         return back()->withErrors([
-    //             'otp' => 'Invalid or expired OTP',
-    //         ])->with('showOtp', true)->withInput();
-    //     }
-
-        
-    //     $user->update([
-    //         'otp' => null,
-    //         'otp_expires_at' => null,
-    //         'contact_verified' => 'Yes'
-    //     ]);
-    // }
+    
     if ($user->contact_verified === 'No') {
 
     
