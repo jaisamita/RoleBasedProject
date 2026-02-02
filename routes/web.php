@@ -23,11 +23,11 @@ Route::get('/', [AuthController::class, 'login_index'])->name('login');
 //for login
 Route::get('/login', [AuthController::class, 'login_index'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resend.otp');
 
 //register
 Route::get('/register', [AuthController::class, 'register_index']);
 Route::post('/register', [AuthController::class, 'register'])->name('register'); 
-
 
 
 //middleware user /admin
@@ -38,10 +38,17 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/{id}', [AuthController::class, 'update']);
     Route::delete('/users/{id}', [AuthController::class, 'destroy']);
 
-    
-	
+});
+
+Route::middleware('auth')->group(function () {
+  Route::get('/user/profile/edit', [AuthController::class, 'editProfile'])
+  ->name('user.profile.edit');
+Route::post('/user/profile/update', [AuthController::class, 'updateProfile'])->name('user.profile.update');
+
 });
 Route::middleware(['auth','is_admin'])->group(function () {
+Route::put('/admin/profile/update', [AdminUsersController::class, 'update']);
+
     Route::delete('/users/{id}', [AuthController::class, 'destroy']);
 });
 
@@ -51,6 +58,8 @@ Route::middleware(['auth','is_admin'])->group(function () {
 
 	Route::get('/admin/users', [AdminUsersController::class, 'index'])
         ->name('admin.users');
+    
+
 });
 
     Route::middleware(['auth'])->post('/logout', [AuthController::class, 'logout'])->name('logout');

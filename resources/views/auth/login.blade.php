@@ -4,141 +4,118 @@
     <title>Login</title>
 
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        body{
+            font-family: Arial;
+            background: linear-gradient(135deg,#667eea,#764ba2);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
         }
 
-        .login-box {
-            background: #ffffff;
-            padding: 30px;
-            width: 350px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .login-box{
+            background:#fff;
+            padding:30px;
+            width:350px;
+            border-radius:10px;
         }
 
-        .login-box h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+        input,button{
+            width:100%;
+            padding:10px;
+            margin-top:8px;
         }
 
-        label {
-            font-weight: bold;
-            color: #555;
+        .error{ color:red;font-size:13px; }
+
+        /* MODAL */
+        .modal{
+            position:fixed;
+            top:0;left:0;
+            width:100%;height:100%;
+            background:rgba(0,0,0,.6);
+            display:flex;
+            align-items:center;
+            justify-content:center;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .error {
-            color: red;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #667eea;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #5a67d8;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .register-link a {
-            text-decoration: none;
-            color: #667eea;
-            font-weight: bold;
+        .modal-box{
+            background:#fff;
+            padding:25px;
+            width:300px;
+            border-radius:8px;
         }
     </style>
 </head>
-
 
 <body>
 
 <div class="login-box">
     <h2>Login</h2>
 
-@if (session('success'))
-    <div id="logout-success" style="
-        background:green;
-        color:white;
-        padding:10px;
-        border-radius:5px;
-        margin-bottom:15px;
-        text-align:center;">
-        {{ session('success') }}
-    </div>
-@endif
-
+   
+ @if(session('success'))
+        <p style="
+            background:#d4edda;color:#155724;padding:8px;  border-radius:5px; font-size:14px; margin-bottom:10px;
+            text-align:center;">
+            {{ session('success') }}
+        </p>
+    @endif
     <form method="POST" action="{{ url('/login') }}">
         @csrf
 
         <label>Email</label>
         <input type="email" name="email" value="{{ old('email') }}">
-        @error('email')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        @error('email') <div class="error">{{ $message }}</div> @enderror
 
         <label>Password</label>
         <input type="password" name="password">
-        @error('password')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        @error('password') <div class="error">{{ $message }}</div> @enderror
 
         <button type="submit">Login</button>
+        <p style="text-align:center; margin-top:10px;">
+    Don't have an account?
+    <a href="{{ url('/register') }}" style="color:#667eea; font-weight:bold;">
+        Register
+    </a>
+</p>
     </form>
+</div>
 
-    <div class="register-link">
-        Don’t have an account?
-        <a href="{{ url('/register') }}">Register</a>
+
+@if(session('showOtp'))
+<div class="modal">
+    <div class="modal-box">
+        <h3>Verify OTP</h3>
+         @if(session('success'))
+            <p style="background:#d4edda;color:#155724;padding:8px;border-radius:5px;font-size:14px;margin-bottom:10px;
+                text-align:center;">
+                {{ session('success') }}
+            </p>
+        @endif
+        <form method="POST" action="{{ url('/login') }}">
+            @csrf
+
+            <input type="hidden" name="email" value="{{ old('email') }}">
+            <input type="hidden" name="password" value="{{ old('password') }}">
+
+            <input type="text" name="otp" placeholder="Enter OTP" required>
+            @error('otp') <div class="error">{{ $message }}</div> @enderror
+
+            <button type="submit">Verify</button>
+            
+        </form>
+
+        <form method="POST" action="{{ route('resend.otp') }}">
+            @csrf
+            <input type="hidden" name="email" value="{{ old('email') }}">
+            <button type="submit" style="background:none;color:#667eea;border:none">
+                Resend OTP
+            </button>
+        </form>
     </div>
 </div>
-@if ($errors->any())
-<script>
-    window.onload = function () {
-        let msg = "";
-        @foreach ($errors->all() as $error)
-            msg += "- {{ $error }}\n";
-        @endforeach
-    };
-</script>
-
 @endif
 
-<script>
-    setTimeout(function () {
-        let msg = document.getElementById('logout-success');
-        if (msg) {
-            msg.style.transition = "opacity 0.5s ease";
-            msg.style.opacity = "0";
-            setTimeout(() => msg.remove(), 500); 
-        }
-    }, 500);
-</script>
 </body>
 </html>

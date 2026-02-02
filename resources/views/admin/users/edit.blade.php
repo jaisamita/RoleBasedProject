@@ -3,6 +3,12 @@
 @section('content')
 
 <div class="container-fluid">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
             <h5>Edit User</h5>
@@ -30,9 +36,9 @@
                     Update
                 </button>
 
-                <!--a href="{{ route('admin.users') }}" class="btn btn-secondary">
+                <!-- <a href="{{ route('admin.users') }}" class="btn btn-secondary">
                     Back
-                </a-->
+</a> -->
             </form>
         </div>
     </div>

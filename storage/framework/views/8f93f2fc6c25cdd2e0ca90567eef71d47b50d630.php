@@ -3,6 +3,13 @@
 <?php $__env->startSection('content'); ?>
 
 <div class="container-fluid">
+    <?php if(session('success')): ?>
+    <div class="alert alert-success">
+        <?php echo e(session('success')); ?>
+
+    </div>
+<?php endif; ?>
+
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
             <h5>Edit User</h5>
@@ -30,9 +37,9 @@
                     Update
                 </button>
 
-                <!--a href="<?php echo e(route('admin.users')); ?>" class="btn btn-secondary">
+                <!-- <a href="<?php echo e(route('admin.users')); ?>" class="btn btn-secondary">
                     Back
-                </a-->
+</a> -->
             </form>
         </div>
     </div>
