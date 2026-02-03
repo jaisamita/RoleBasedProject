@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
 
         .error{ color:red;font-size:13px; }
 
-        /* MODAL */
+
         .modal{
             position:fixed;
             top:0;left:0;
@@ -88,13 +89,21 @@ endif;
 unset($__errorArgs, $__bag); ?>
 
         <button type="submit">Login</button>
+        </form>
         <p style="text-align:center; margin-top:10px;">
     Don't have an account?
     <a href="<?php echo e(url('/register')); ?>" style="color:#667eea; font-weight:bold;">
         Register
     </a>
+  <br>
+     <a href="<?php echo e(route('forget')); ?>" style="color:#667eea; font-weight:bold;">
+    Forget Password
+</a>
+
 </p>
-    </form>
+
+
+    
 </div>
 
 
@@ -128,14 +137,12 @@ unset($__errorArgs, $__bag); ?>
             <button type="submit">Verify</button>
             
         </form>
+     <form method="POST" action="<?php echo e(route('login.resend.otp')); ?>">
+     <?php echo csrf_field(); ?>
+    <button type="submit">Resend OTP</button>
+    </form>
 
-        <form method="POST" action="<?php echo e(route('resend.otp')); ?>">
-            <?php echo csrf_field(); ?>
-            <input type="hidden" name="email" value="<?php echo e(old('email')); ?>">
-            <button type="submit" style="background:none;color:#667eea;border:none">
-                Resend OTP
-            </button>
-        </form>
+       
     </div>
 </div>
 <?php endif; ?>

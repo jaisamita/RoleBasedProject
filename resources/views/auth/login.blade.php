@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
 
         .error{ color:red;font-size:13px; }
 
-        /* MODAL */
+
         .modal{
             position:fixed;
             top:0;left:0;
@@ -73,13 +74,21 @@
         @error('password') <div class="error">{{ $message }}</div> @enderror
 
         <button type="submit">Login</button>
+        </form>
         <p style="text-align:center; margin-top:10px;">
     Don't have an account?
     <a href="{{ url('/register') }}" style="color:#667eea; font-weight:bold;">
         Register
     </a>
+  <br>
+     <a href="{{ route('forget') }}" style="color:#667eea; font-weight:bold;">
+    Forget Password
+</a>
+
 </p>
-    </form>
+
+
+    
 </div>
 
 
@@ -105,14 +114,12 @@
             <button type="submit">Verify</button>
             
         </form>
+     <form method="POST" action="{{ route('login.resend.otp') }}">
+     @csrf
+    <button type="submit">Resend OTP</button>
+    </form>
 
-        <form method="POST" action="{{ route('resend.otp') }}">
-            @csrf
-            <input type="hidden" name="email" value="{{ old('email') }}">
-            <button type="submit" style="background:none;color:#667eea;border:none">
-                Resend OTP
-            </button>
-        </form>
+       
     </div>
 </div>
 @endif

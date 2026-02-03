@@ -12,136 +12,93 @@ use App\Mail\WelcomeMail;
 
 class AuthController extends Controller
 {
-	//register web
+	
 	public function register_index(){
 		
 		    return view('auth.register');
 	}
 	
-	//login web
+	
 	public function login_index(){
 		    return view('auth.login');
 	}
 	
 	//register function
-    public function register(Request $request)
-	{
-	  $request->validate([
-        'name'     => 'required|string|min:3',
+    
+	public function register(Request $request)
+{
+    $request->validate([
+        'name'     => 'required|string',
         'email'    => 'required|email|unique:users,email',
         'password' => 'required|min:6|confirmed',
-        
-    
     ], [
         'name.required'     => 'Name field is required',
         'email.required'    => 'Email field is required',
-        'email.email'       =>   'Please enter a valid email address',
-        'email.unique'       =>   'This  emailId is already registered',
+        'email.email'       => 'Please enter a valid email address',
+        'email.unique'      => 'This email is already registered',
         'password.required' => 'Password field is required',
-        'password.confirmed' =>'Password confirmation does not match',
-        'password.min'       => 'Password must be at least 6 characters',
-        
+        'password.confirmed'=> 'Password confirmation does not match',
+        'password.min'      => 'Password must be at least 6 characters',
     ]);
-		
-		$user = User::create([
-		'name'=>$request->name,
-		'email'=>$request->email,
-		'password'=>Hash::make($request->password),
-        'contact_verified' => 'No',
-		]);
-		
 
-       // Mail::to($user->email)->send(new WelcomeMail());
+    $otp = rand(100000, 999999);
 
-		
-		return redirect('/login')->with('success', 'Registration successful. Please login.');
-	}
-	
-public function login(Request $request)
+    $user = User::create([
+        'name'              => $request->name,
+        'email'             => $request->email,
+        'password'          => Hash::make($request->password),
+        'otp'               => $otp,
+        'otp_expires_at'    => Carbon::now()->addMinutes(5),
+        'contact_verified'  => 'No',
+    ]);
+
+    Mail::raw("Your OTP is: $otp", function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Email Verification OTP');
+    });
+    
+    return back()
+    ->with('success', 'Email Verification OTP sent to your email')
+    ->with('showOtp', true)
+    ->with('email', $user->email);
+
+}
+  
+public function verifyOtp(Request $request)
 {
-    $request->validate(
-        [
-            'email'    => 'required|email',
-            'password' => 'required|min:6',
-        ],
-        [
-            'email.required'    => 'Email field is required',
-            'email.email'       => 'Please enter a valid email address',
-            'password.required' => 'Password field is required',
-            'password.min'      => 'Password must be at least 6 characters',
-        ]
-    );
+    $request->validate([
+        'email' => 'required|email',
+        'otp'   => 'required'
+    ], [
+        'otp.required' => 'OTP is required'
+    ]);
 
-    $user = User::where('email', $request->email)->first();
+    $user = User::where('email', $request->email)
+                ->where('otp', $request->otp)
+                ->where('otp_expires_at', '>', now())
+                ->first();
 
     if (!$user) {
-        return back()->withErrors([
-            'email' => 'Email is not registered'
-        ])->withInput();
-    }
-
-    if (!Hash::check($request->password, $user->password)) {
-        return back()->withErrors([
-            'password' => 'Password is incorrect'
-        ])->withInput();
-    }
-
-    
-    if ($user->contact_verified === 'No') {
-
-    
-    if (!$request->filled('otp')) {
-
-        $otp = rand(100000, 999999);
-
-        $user->update([
-            'otp' => $otp,
-            'otp_expires_at' => Carbon::now()->addMinutes(5),
-        ]);
-
-        Mail::raw(
-            "Your OTP is: $otp\nValid for 5 minutes.",
-            function ($message) use ($user) {
-                $message->to($user->email)
-                        ->subject('Login OTP Verification');
-            }
-        );
-
-        return back()
-            ->with('success', 'OTP sent to your email')
-            ->with('showOtp', true)
-            ->withInput();
-    }
-
-
-    if (
-        $user->otp !== $request->otp ||
-        Carbon::now()->gt($user->otp_expires_at)
-    ) {
         return back()
             ->withErrors(['otp' => 'Invalid or expired OTP'])
             ->with('showOtp', true)
-            ->withInput();
+            ->with('email', $request->email);
     }
 
     $user->update([
+        'contact_verified' => 'Yes',
         'otp' => null,
         'otp_expires_at' => null,
-        'contact_verified' => 'Yes'
     ]);
-}
 
     auth()->login($user);
 
     if ($user->role === 'admin') {
-        return redirect('/admin/dashboard')
-            ->with('success', 'Login successful');
+        return redirect('/admin/dashboard')->with('success', 'Login successfully');
     }
 
-    return redirect('/user/dashboard')
-        ->with('success', 'Login successful');
+    return redirect('/user/dashboard')->with('success', 'Login successfully');
 }
-
 public function resendOtp(Request $request)
 {
     $request->validate([
@@ -176,10 +133,166 @@ public function resendOtp(Request $request)
     );
 
     return back()
-        ->with('success', 'OTP resent successfully')
+        ->with('success', 'OTP resent successfully')->with('email', $user->email)
         ->with('showOtp', true)
-        
         ->withInput();
+}
+
+
+public function login(Request $request)
+{
+    
+    if ($request->filled('otp')) {
+        $request->validate([
+            'otp' => 'required'
+        ]);
+        $user = User::where('email', session('otp_email'))->first();
+        if (
+            !$user ||
+            $user->otp != trim($request->otp) ||
+            Carbon::now()->gt($user->otp_expires_at)
+        ) {
+            return back()
+                ->withErrors(['otp' => 'Invalid or expired OTP'])
+                ->with('showOtp', true);
+        }
+
+       
+        $user->update([
+            'otp' => null,
+            'otp_expires_at' => null,
+            'contact_verified' => 'Yes'
+        ]);
+
+        auth()->login($user);
+
+        return redirect('/user/dashboard')
+            ->with('success', 'Login successful');
+    }
+
+    $request->validate(
+        [
+            'email'    => 'required|email',
+            'password' => 'required|min:6',
+        ],
+        [
+            'email.required'    => 'Email field is required',
+            'email.email'       => 'Please enter a valid email address',
+            'password.required' => 'Password field is required',
+            'password.min'      => 'Password must be at least 6 characters',
+        ]
+    );
+
+    $user = User::where('email', $request->email)->first();
+
+    if (!$user) {
+        return back()->withErrors([
+            'email' => 'Email is not registered'
+        ])->withInput();
+    }
+
+    if (!Hash::check($request->password, $user->password)) {
+        return back()->withErrors([
+            'password' => 'Password is incorrect'
+        ])->withInput();
+    }
+
+
+   
+    if ($user->contact_verified === 'No') {
+
+        $otp = rand(100000, 999999);
+
+        $user->update([
+            'otp' => $otp,
+            'otp_expires_at' => Carbon::now()->addMinutes(5),
+        ]);
+
+        session(['otp_email' => $user->email]);
+
+        Mail::raw("Your OTP is: $otp", function ($m) use ($user) {
+            $m->to($user->email)->subject('OTP Verification');
+        });
+
+        return back()
+            ->with('showOtp', true)
+            ->with('success', 'OTP sent to your email');
+    }
+
+    auth()->login($user);
+
+    if ($user->role === 'admin') {
+        return redirect('/admin/dashboard')->with('success', 'Login successfully');
+    }
+
+    return redirect('/user/dashboard')->with('success', 'Login successfully');
+}
+public function verifyLoginOtp(Request $request)
+{
+    $request->validate([
+        'otp' => 'required'
+    ]);
+
+    $user = User::where('email', session('otp_email'))->first();
+
+    if (
+        !$user ||
+        $user->otp != trim($request->otp) ||
+        Carbon::now()->gt($user->otp_expires_at)
+    ) {
+        return back()
+            ->withErrors(['otp' => 'Invalid or expired OTP'])
+            ->with('showOtp', true);
+    }
+
+    
+    $user->update([
+        'otp' => null,
+        'otp_expires_at' => null,
+        'contact_verified' => 'Yes'
+    ]);
+
+    session()->forget('otp_email');
+
+    auth()->login($user);
+
+    //auth()->login($user);
+
+    if ($user->role === 'admin') {
+        return redirect('/admin/dashboard')->with('success', 'Login successfully');
+    }
+
+    return redirect('/user/dashboard')->with('success', 'Login successfully');
+}
+public function resendLoginOtp()
+{
+    $email = session('otp_email');
+
+    if (!$email) {
+        return redirect('/login')
+            ->withErrors(['email' => 'Session expired, please login again']);
+    }
+
+    $user = User::where('email', $email)->first();
+
+    if (!$user) {
+        return redirect('/login');
+    }
+
+    $otp = rand(100000, 999999);
+
+    $user->update([
+        'otp' => $otp,
+        'otp_expires_at' => Carbon::now()->addMinutes(5),
+    ]);
+
+    Mail::raw("Your OTP is: $otp", function ($m) use ($user) {
+        $m->to($user->email)->subject('OTP Verification');
+    });
+
+    return back()
+        ->with('showOtp', true)
+        ->with('success', 'OTP resent successfully');
 }
 
 //user dashboard
@@ -188,7 +301,6 @@ public function admin_index(){
 	return view('admin.dashboard');
 	
 }
-//admin dashboard
 public function user_index(){
 	
   return view('user.dashboard');
@@ -284,25 +396,26 @@ public function updateProfile(Request $request)
     return redirect('/user/dashboard')
         ->with('success', 'Profile updated successfully');
 }
-public function updateProfile_ad(Request $request)
-{
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-    ], [
-        'name.required' => 'Name is required',
-        'email.required'=> 'Email is required',
-        'email.email'   => 'Enter a valid email',
-    ]);
+// public function updateProfile_ad(Request $request)
+// {
+//     $request->validate([
+//         'name' => 'required',
+//         'email' => 'required|email',
+//     ], [
+//         'name.required' => 'Name is required',
+//         'email.required'=> 'Email is required',
+//         'email.email'   => 'Enter a valid email',
+//     ]);
 
-    $user = auth()->user();
-    $user->name  = $request->name;
-    $user->email = $request->email;
-    $user->save();
+//     $user = auth()->user();
+//     $user->name  = $request->name;
+//     $user->email = $request->email;
+//     $user->save();
 
-    return redirect('/admin/dashboard')
-        ->with('success', 'Profile updated successfully');
+//     return redirect('/admin/dashboard')
+//         ->with('success', 'Profile updated successfully');
+// }
 }
-}
+
 
 
